@@ -1,0 +1,84 @@
+[gd_scene load_steps=12 format=3 uid="uid://bec0454p5v0vw"]
+
+[ext_resource type="Texture2D" uid="uid://tt0f5buwu66s" path="res://parchment_square.png" id="1_a3dfb"]
+[ext_resource type="Script" path="res://main.gd" id="1_mb8e0"]
+[ext_resource type="Texture2D" uid="uid://elageq1dgn7m" path="res://tilesheet.png" id="2_krswx"]
+[ext_resource type="Script" path="res://GodsEye.gd" id="4_q6aow"]
+[ext_resource type="Texture2D" uid="uid://bd04h4asny21o" path="res://icon.svg" id="5_jck4x"]
+
+[sub_resource type="Gradient" id="Gradient_jfalt"]
+offsets = PackedFloat32Array(0.285915, 0.691549, 1)
+colors = PackedColorArray(0.137255, 0.137255, 0.713726, 1, 0.937255, 0.603922, 0.137255, 1, 0.337255, 0.0862745, 0.0862745, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_colib"]
+seed = 10016
+frequency = 0.1344
+fractal_type = 0
+fractal_octaves = 10
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mddo1"]
+width = 1000
+height = 1000
+color_ramp = SubResource("Gradient_jfalt")
+noise = SubResource("FastNoiseLite_colib")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r4glk"]
+texture = ExtResource("2_krswx")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/modulate = Color(0.0941176, 0.0941176, 0.0941176, 1)
+1:0/0 = 0
+1:0/0/modulate = Color(0.337255, 0.584314, 1, 1)
+2:0/0 = 0
+2:0/0/modulate = Color(0.294118, 0.0156863, 0.0862745, 1)
+
+[sub_resource type="TileSet" id="TileSet_uwcx6"]
+tile_shape = 3
+tile_size = Vector2i(128, 128)
+sources/0 = SubResource("TileSetAtlasSource_r4glk")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wc5lk"]
+
+[node name="main" type="Node"]
+script = ExtResource("1_mb8e0")
+noise_height_texture = SubResource("NoiseTexture2D_mddo1")
+
+[node name="1" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_uwcx6")
+format = 2
+layer_0/name = "Water"
+layer_0/tile_data = PackedInt32Array(0, 0, 0, -65536, 0, 0, 1, 0, 0, 65536, 0, 0, 65537, 0, 0, 2, 0, 0, 65538, 0, 0, 131074, 0, 0, -65535, 0, 0, -65534, 131072, 0, 131075, 0, 0, 65539, 131072, 0, 131076, 131072, 0, 196612, 65536, 0, 196613, 65536, 0, 262149, 65536, 0, 131077, 131072, 0, 196614, 131072, 0, 262151, 131072, 0, 327685, 65536, 0, 327686, 65536, 0, 262150, 65536, 0, 196611, 65536, 0, 262148, 65536, 0, 327687, 65536, 0, 393223, 65536, 0, 393222, 65536, 0, 65540, 131072, 0, 3, 131072, 0, -131070, 131072, 0, -131071, 131072, 0, -65533, 131072, 0, -65532, 131072, 0, 4, 131072, 0, 65541, 131072, 0, 131078, 131072, 0, 196615, 131072, 0)
+layer_1/name = "Plain"
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "Mountain"
+layer_2/tile_data = PackedInt32Array()
+
+[node name="GodsEye" type="CharacterBody2D" parent="1"]
+position = Vector2(520, 272)
+collision_layer = 0
+collision_mask = 0
+motion_mode = 1
+floor_block_on_wall = false
+platform_on_leave = 2
+script = ExtResource("4_q6aow")
+
+[node name="Sprite2D" type="Sprite2D" parent="1/GodsEye"]
+texture = ExtResource("5_jck4x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="1/GodsEye"]
+shape = SubResource("RectangleShape2D_wc5lk")
+
+[node name="Camera2D" type="Camera2D" parent="1/GodsEye"]
+position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_a3dfb")
+stretch_mode = 1
