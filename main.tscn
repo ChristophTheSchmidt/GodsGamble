@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bec0454p5v0vw"]
+[gd_scene load_steps=13 format=3 uid="uid://bec0454p5v0vw"]
 
 [ext_resource type="Texture2D" uid="uid://tt0f5buwu66s" path="res://parchment_square.png" id="1_a3dfb"]
 [ext_resource type="Script" path="res://main.gd" id="1_mb8e0"]
 [ext_resource type="Texture2D" uid="uid://elageq1dgn7m" path="res://tilesheet.png" id="2_krswx"]
 [ext_resource type="Script" path="res://GodsEye.gd" id="4_q6aow"]
 [ext_resource type="Texture2D" uid="uid://bd04h4asny21o" path="res://icon.svg" id="5_jck4x"]
+[ext_resource type="Script" path="res://WG.gd" id="6_y25ht"]
 
 [sub_resource type="Gradient" id="Gradient_jfalt"]
 offsets = PackedFloat32Array(0.285915, 0.691549, 1)
@@ -82,3 +83,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_a3dfb")
 stretch_mode = 1
+
+[node name="WG" type="Node2D" parent="."]
+script = ExtResource("6_y25ht")
+world_size = 1000

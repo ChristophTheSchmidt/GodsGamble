@@ -2,6 +2,7 @@ extends Node
 
 @onready var tm1: TileMap = $"1"
 
+
 @export var noise_height_texture: NoiseTexture2D
 var noise: Noise
 @export var world_size: = 1000
